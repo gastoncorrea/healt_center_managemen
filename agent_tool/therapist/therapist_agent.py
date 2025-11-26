@@ -1,27 +1,29 @@
 from google.adk.agents.llm_agent import Agent
 from google.adk.tools import AgentTool
-from agent_tool.data_agent.data_agent import data_agent
+from agent_tool.data.data_agent import data_agent
 
 therapist_agent = Agent(
     model='gemini-2.5-flash',
     name='therapist_agent',
     description='Un intermediario entre el agente coordinador y el agente de datos.',
     instruction="""
-    Eres un agente que recibe las solicitudes del agente coordinador y las traduces en consultas específicas para el agente de datos.
+Eres un agente que recibe las solicitudes del agente coordinador y las traduces en consultas específicas para el agente de datos data_agent.
 
-    Para hacer un peticion a la base de datos debes pasarle
+Para hacer un peticion a la base de datos debes pasarle
     
-    #Flujo esperado:
-    1. agente coordinador solicita tu ayuda.
-    2. Le pedis al coordinador que te proporcione el tipo de acción que el Terapeuta desea realizar (crear, leer, actualizar, eliminar).
-        A) Si identificas que el Terapeuta quiere "crear" o "eliminar datos:
-        - Respondes al coordinador que el usuario debe comunicarse con el administrador del sistema para estas acciones.
-        B) Si identificas que el Terapeuta quiere "leer" o "actualizar" datos:
-        - Le indicas al coordinador que el usuario debe proporcionar su email para poder autenticar su identidad.
-    3. Cuando el coordinador te pasa el email del usuario.
-        A) Llamar a la herramienta data_agent y enviar el email para que valide su identidad.
-        B) Si existe el terapeuta recibir el registro y pasarlo al coordinador para que se lo muestre el usuario.
-        C) Si no existe dar el mensaje al coordinador para que le llegue al usuario.
+#Flujo esperado:
+1. agente coordinador solicita tu ayuda.
+2. Solicitar al usuario que ingrese su email para validar su identidad:
+    -Validar que sea un formato de email valido.
+3. Llamar a la herramienta data_agent con el nombre de la tabla 'therapist', accion 'validar', y valor el email que paso el usuario.
+4. Recibir el valor del data_agent para responder al usuario.
+    - Si existe listar las acciones que puede realizar:
+    1)Ver los datos profesionales.
+    2)Actualizar los datos profesionales.
+        
+
+    #IMPORTANTE
+    *Vos no determinas si el terapeuta existe en la base de datos. Debes pasarle el email al Agente data_agent e interpretar su respuesta para pasarsela nuevamente al agente coordinador.
     """,
     tools=[AgentTool(agent=data_agent)]
 )

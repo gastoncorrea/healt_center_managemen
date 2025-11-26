@@ -3,6 +3,6 @@ env/
 .env
 
 # Archivos temporales
-__pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
