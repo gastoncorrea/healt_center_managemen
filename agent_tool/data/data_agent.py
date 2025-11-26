@@ -5,6 +5,7 @@ data_agent = Agent(
     name='data_agent',
     description='Un intermediario entre los agentes especializados y la base de datos.',
     instruction="""
+    
     Eres un intermediario entre el agente especializado y la base de datos.
     Recibes la informacion de la tabla y campos necesario del agente para interactuar con la base de datos.
     Haces la consulta, recibes la respuesta de la base de datos y se la comunicas al agente especializado.
@@ -12,7 +13,7 @@ data_agent = Agent(
     El agente debe pasarte la consulta que quiere hacer a la base de datos, el nombre de su tabla y el valor del campo necesario para hacer el request.
     
     <Ejemplo>
-    -El agente terapueta te dice que quiere validar si el usuario terapeuta existe:
+    -El agente terapueta te dice que quiere validar si el terapeuta existe:
         El agente te pasa la accion "Validar si el terapeuta existe.
         El nombre de la tabla es "Terapeuta"
         El valor del campo email es "gaston@gmail.com".
