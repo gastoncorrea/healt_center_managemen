@@ -1,4 +1,7 @@
 from google.adk.agents.llm_agent import Agent
+from google.adk.tools.mcp_tool import McpToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from mcp import StdioServerParameters
 
 data_agent = Agent(
     model='gemini-2.5-flash',
@@ -26,4 +29,19 @@ data_agent = Agent(
     2. Le respondes al agent_therapist que el email no existe todavia.
 
     """,
-)
+    tools=[
+        McpToolset(
+            connection_params=StdioConnectionParams(
+                server_params = StdioServerParameters(
+                    command='npx',
+                    args=[
+                        "-y",  # Argument for npx to auto-confirm install
+                        "@modelcontextprotocol/server-mysql",       
+                    ],
+                ),
+            ),
+            # Optional: Filter which tools from the MCP server are exposed
+            # tool_filter=['list_directory', 'read_file']
+        )
+    ],
+)   
