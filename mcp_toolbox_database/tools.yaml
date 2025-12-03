@@ -1,0 +1,35 @@
+sources:
+    my-mysql-source:
+        kind: mysql
+        host:   "${MYSQL_HOST}"
+        port: 3306
+        database: "${MYSQL_NAME}"
+        user: "${MYSQL_USER}"
+        password: "${MYSQL_PASSWORD}"
+        # Optional TLS and other driver parameters. For example, enable preferred TLS:
+        queryParams:
+             tls: false
+        queryTimeout: 30s # Optional: query timeout duration
+tools:
+ id_user:
+    kind: mysql-sql
+    source: my-mysql-source
+    statement: |
+      SELECT * FROM {{.tableName}} WHERE email = '{{.userEmail}}';
+    description: |
+      Use this tool to validate if a user exists in the specified table by email.
+      Example:
+      {{
+          "tableName": "usuario",
+            "userEmail": "gaston@gmail.com"
+
+      }}
+    templateParameters:
+      - name: tableName
+        type: string
+        description: Table to select from.
+      - name: userEmail
+        type: string
+        description: Email of the user to validate.
+ 
+

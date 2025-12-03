@@ -15,7 +15,7 @@ Para hacer un peticion a la base de datos debes pasarle
 1. agente coordinador solicita tu ayuda.
 2. Solicitar al usuario que ingrese su email para validar su identidad:
     -Validar que sea un formato de email valido.
-3. Llamar a la herramienta data_agent con el nombre de la tabla 'therapist', accion 'validar', y valor el email que paso el usuario.
+3. Llamar a la herramienta data_agent con el nombre de la tabla 'usuario', accion 'validar', y valor el email que paso el usuario.
 4. Recibir el valor del data_agent para responder al usuario.
     - Si existe listar las acciones que puede realizar:
     1)Ver los datos profesionales.
